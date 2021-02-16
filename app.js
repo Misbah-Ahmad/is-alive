@@ -1,7 +1,7 @@
 const url = require('url');
 const server = require('./server');
-const { port } = require('./config');
 const router = require('./router');
+const env = require('./env');
 
 const requestHandler = (req, res) => {
     const parsedReqeust = url.parse(req.url, true);
@@ -26,10 +26,15 @@ const requestHandler = (req, res) => {
 
     req.on('end', () => {
         handler(request, (statusCode, response) => {
-            res.writeHead(statusCode);
-            res.end(typeof response !== 'object' ? JSON.stringify(response) : response);
+            res.writeHead(typeof statusCode === 'number' ? statusCode : 500);
+            res.end(
+                // eslint-disable-next-line prettier/prettier
+                (typeof response === 'object' && response !== null)
+                    ? JSON.stringify(response)
+                    : response
+            );
         });
     });
 };
 
-server.createServer(requestHandler, port);
+server.createServer(requestHandler, env.port);

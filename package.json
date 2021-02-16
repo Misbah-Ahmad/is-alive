@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "dev-start": "NODE_ENV=dev nodemon app.js",
+    "prod-start": "NODE_ENV=production nodemon app",
     "start": "nodemon app"
   },
   "devDependencies": {
