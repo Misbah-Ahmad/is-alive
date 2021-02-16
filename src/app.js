@@ -1,7 +1,7 @@
 const url = require('url');
-const server = require('./server');
+const server = require('./config/server');
 const router = require('./router');
-const env = require('./env');
+const env = require('./config/env');
 
 const requestHandler = (req, res) => {
     const parsedReqeust = url.parse(req.url, true);
