@@ -15,6 +15,7 @@
         "indent": 0,
         "linebreak-style": 0,
         "comma-dangle": 0,
+        "no-trailing-spaces": 0,
         "prettier/prettier": [
             "error",
             {
