@@ -1,3 +1,3 @@
 module.exports = {
-    dataFolderPath: '../../.data/',
+    dataFolderPath: `${__dirname}/../../.data/`,
 };

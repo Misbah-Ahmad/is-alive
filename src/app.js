@@ -14,6 +14,7 @@ const requestHandler = (req, res) => {
         method: req.method.toUpperCase(),
         headers: req.headers,
         query: parsedReqeust.query,
+        postData: null,
     };
 
     let postData = '';
@@ -22,10 +23,10 @@ const requestHandler = (req, res) => {
         postData += buffer.toString();
     });
 
-    request.postData = postData;
-
     req.on('end', () => {
+        request.postData = JSON.parse(postData);
         handler(request, (statusCode, response) => {
+            res.setHeader('Content-Type', 'application/json');
             res.writeHead(typeof statusCode === 'number' ? statusCode : 500);
             res.end(
                 // eslint-disable-next-line prettier/prettier
