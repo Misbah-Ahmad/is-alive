@@ -1,7 +1,7 @@
 const home = require('./request_handlers/home');
 const notFound = require('./request_handlers/not_found');
 const user = require('./request_handlers/user_handler');
-const authHandler = require('./request_handlers/auth');
+const { loginHandler, logoutHandler } = require('./request_handlers/auth');
 
 module.exports = (path) => {
     switch (path) {
@@ -10,7 +10,9 @@ module.exports = (path) => {
         case '/users':
             return user;
         case '/login':
-            return authHandler;
+            return loginHandler;
+        case '/logout':
+            return logoutHandler;
         default:
             return notFound;
     }

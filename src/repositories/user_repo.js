@@ -1,5 +1,5 @@
 const path = require('path');
-const { writeNewFile, fileExists, readFile } = require('../../lib/file');
+const { writeNewFile, fileExists, readFile, updateFile } = require('../../lib/file');
 const { dataFolderPath } = require('../config/config');
 const { makeHash } = require('../../lib/hash');
 const { generateToken } = require('../../lib/token');
@@ -43,7 +43,22 @@ const getUser = (phone, callback) => {
     });
 };
 
+const refreshUserToken = (phone, callback) => {
+    const filePath = path.join(dataFolderPath, `${phone}.json`);
+
+    getUser(phone, (error, data) => {
+        if (!error) {
+            const user = data;
+            user.profile.token = generateToken();
+            updateFile(filePath, user, (updateError) => callback(updateError));
+        } else {
+            callback(true); // error  == true
+        }
+    });
+};
+
 module.exports = {
     createUser,
     getUser,
+    refreshUserToken,
 };
