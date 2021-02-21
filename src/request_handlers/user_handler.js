@@ -13,7 +13,11 @@ const createNewUser = (request, responseCallback) => {
 const getSingleUser = (phone, responseCallback) => {
     getUser(phone, (error, data) => {
         if (!error) {
-            responseCallback(200, { success: true, data });
+            const user = data;
+            delete user.profile.password;
+            delete user.profile.token;
+
+            responseCallback(200, { success: true, user });
         } else {
             responseCallback(500, {
                 success: false,

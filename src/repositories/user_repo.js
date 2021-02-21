@@ -34,10 +34,7 @@ const getUser = (phone, callback) => {
                 if (error) {
                     callback("User doesn't exist", null);
                 } else {
-                    const user = JSON.parse(data);
-                    delete user.profile.password;
-                    delete user.profile.token;
-                    callback(null, user);
+                    callback(null, JSON.parse(data));
                 }
             });
         } else {
